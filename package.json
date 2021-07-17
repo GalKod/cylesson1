@@ -1,0 +1,20 @@
+{
+  "name": "cylesson1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "cypress": "^7.7.0",
+    "typescript": "^4.3.5"
+  },
+  "description": ""
+}
