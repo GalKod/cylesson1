@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress:open": "npx cypress open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/dotenv": "^8.2.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "lorem-ipsum": "^2.0.3"
   },
   "devDependencies": {
     "cypress": "^7.7.0",
