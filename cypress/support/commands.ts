@@ -35,13 +35,16 @@ declare global {
             password?: string
         }
         interface Chainable {
+            signIn: typeof signIn
             signUp: typeof signUp
             setEmail: typeof setEmail
             setName: typeof setName
             setPassword: typeof setPassword
             setConfirmPassword: typeof setConfirmPassword
             openSignUpForm: typeof openSignUpForm
-            greeting: (options?: SignIn) => void
+            activeButtonSignUp: typeof activeButtonSignUp
+            activeButtonSignIn: typeof activeButtonSignIn
+            openSignInForm: typeof openSignInForm
         }
     }
 }
@@ -71,37 +74,65 @@ export function setEmail(mail?: string){
     cy.get('#email').type(mail);
 }
 
-export function setName (name?: string) {
+function setName(name?: string, baseConfig: boolean = true) {
     cy.get('#firstName').type(name);
 }
 
-export function setPassword(pass?: string) {
+function setPassword(pass?: string, baseConfig: boolean = true) {
     cy.get('#password').type(pass);
 }
 
-export function setConfirmPassword(confirmPass?: string) {
+function setConfirmPassword(confirmPass?: string, baseConfig: boolean = true) {
     cy.get('#repeatPassword').type(confirmPass);
 }
 
-export function openSignUpForm() {
+function openSignUpForm() {
     cy.get('[class="header_sign-up-btn secondary-global-button"]').click();
-    cy.get('[class=primary-global-button"]').should('be.visible');
+    cy.get("app-auth-modal app-sign-up [type='submit']").should('be.visible');
 }
 
-export function signUp(mail?:string, name?:string, pass?:string, confirmPass?:string, baseConfig:boolean = true){
+function openSignInForm() {
+    cy.get('[class="header_sign-in-link tertiary-global-button"]').click();
+    cy.get("app-sign-in [type='submit']").should('be.visible');
+}
+
+function activeButtonSignUp() {
+    cy.get("app-auth-modal app-sign-up [type='submit']").should('not.be.disabled')
+}
+
+function activeButtonSignIn() {
+    cy.get("app-sign-in [type='submit']").should('not.be.disabled')
+}
+
+export function signUp(mail?: string, name?: string, pass?: string, confirmPass?: string, baseConfig: boolean = true) {
     openSignUpForm();
-    if(baseConfig){
+    if (baseConfig) {
         setEmail(email);
         setName(pseudonym);
         setPassword(password);
         setConfirmPassword(password);
+        activeButtonSignUp();
     } else {
         setEmail(mail);
         setName(name);
         setPassword(pass);
         setConfirmPassword(confirmPass);
+        activeButtonSignUp();
     }
-    Cypress.Commands.add('SignUp', signUp);
 }
+
+export function signIn(mail?: string, pass?: string, baseConfig: boolean = true) {
+    openSignInForm();
+    if(baseConfig){
+        setEmail(email);
+        setPassword(password);
+        activeButtonSignIn();
+    }else{
+        setEmail(mail);
+        setPassword(pass);
+        activeButtonSignIn();
+    }
+}
+
 
 Cypress.Commands.add('SignUp', signUp)

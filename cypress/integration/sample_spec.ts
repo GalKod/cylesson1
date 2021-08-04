@@ -1,12 +1,15 @@
 /// <reference types="cypress" />
 
+import {signUp} from "../support/commands";
+
 describe('Test Sign Up GreenCity', () => {
 
     beforeEach(() => {cy.visit('/');} )
 
     it('verify that we can type some in login', () => {
         cy.url().should('include', 'https://ita-social-projects.github.io/GreenCityClient');
-        cy.signUp();
+       // cy.signUp();
+        cy.signIn();
 
 
  /*       cy.get('.header_sign-up-btn > span').click()
